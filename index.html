@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoyoung Kim — Industrial Engineering, Dankook University</title>
+    <meta
+      name="description"
+      content="Hoyoung Kim — M.S. researcher at the Computational Optimization for Intelligent Systems Lab, Dankook University. Machine learning, mathematical programming, and technology opportunity analysis."
+    />
+
+    <!-- ===========================================================
+         Google Fonts
+         - Newsreader: 본문 세리프 (가독성 + 학술적 뉘앙스)
+         - Inter: 섹션 헤딩/메타/UI 요소용 산세리프
+         레퍼런스 AcademicPages 의 차분한 느낌과 유사하게 맞춤
+         =========================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ============================================================
+         디자인 토큰
+         - 흰 배경 + 진한 잉크 색상 본문 (순검정은 눈 피로가 커서 회피)
+         - 액센트 색상 1개만 사용 (링크/하이라이트)
+         ============================================================ */
+      :root {
+        --bg: #ffffff;
+        --fg: #1a1a1a;           /* 본문 잉크 */
+        --fg-muted: #5a5a5a;     /* 보조 텍스트 */
+        --fg-subtle: #8a8a8a;    /* 더 연한 메타 */
+        --line: #e5e5e5;         /* 구분선 */
+        --accent: #0a5cff;       /* 링크 액센트 (차분한 학술 블루) */
+        --accent-hover: #083fb0;
+        --surface: #fafafa;      /* 연한 카드/블록 배경 */
+
+        --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+        --max-content: 1160px;
+        --sidebar-width: 280px;
+      }
+
+      /* 기본 리셋 */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--font-serif);
+        font-size: 17px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.15s ease, color 0.15s ease;
+      }
+      a:hover {
+        color: var(--accent-hover);
+        border-bottom-color: currentColor;
+      }
+
+      /* ============================================================
+         레이아웃: 좌측 고정 사이드바 + 우측 스크롤 콘텐츠
+         - 데스크톱: 2컬럼
+         - 모바일(≤ 900px): 세로 스택, 사이드바 상단 배치
+         ============================================================ */
+      .page {
+        max-width: var(--max-content);
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: var(--sidebar-width) 1fr;
+        gap: 64px;
+        padding-top: 56px;
+        padding-bottom: 96px;
+      }
+
+      @media (max-width: 900px) {
+        .page {
+          padding: 0 20px;
+        }
+        .layout {
+          grid-template-columns: 1fr;
+          gap: 40px;
+          padding-top: 32px;
+        }
+      }
+
+      /* ============================================================
+         사이드바
+         - sticky 로 스크롤 시 따라오도록 고정
+         - 프로필 사진 + 이름 + 소속 + 연락처 링크
+         ============================================================ */
+      .sidebar {
+        position: sticky;
+        top: 56px;
+        align-self: start;
+      }
+
+      @media (max-width: 900px) {
+        .sidebar {
+          position: static;
+        }
+      }
+
+      /* 프로필 사진 영역
+         - 실제 사진을 /images/profile.jpg 경로에 넣으면 표시됨
+         - 이미지가 없을 때도 영역이 유지되도록 기본 배경/이니셜 노출 */
+      .profile-photo {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: var(--surface);
+        background-image: url('images/profile.jpg');
+        background-size: cover;
+        background-position: center;
+        margin-bottom: 20px;
+        border: 1px solid var(--line);
+        /* 사진이 없을 때 fallback 으로 표시될 이니셜 처리 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--fg-subtle);
+        font-family: var(--font-sans);
+        font-size: 48px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+      }
+
+      .profile-name {
+        font-family: var(--font-serif);
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 1.25;
+        margin: 0 0 6px 0;
+        letter-spacing: -0.01em;
+      }
+
+      .profile-affiliation {
+        font-family: var(--font-sans);
+        font-size: 13px;
+        line-height: 1.55;
+        color: var(--fg-muted);
+        margin: 0 0 20px 0;
+      }
+
+      /* 사이드바 연락처 링크 리스트 */
+      .contact-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-family: var(--font-sans);
+        font-size: 14px;
+      }
+      .contact-list li {
+        margin: 0 0 8px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .contact-list .icon {
+        width: 16px;
+        height: 16px;
+        color: var(--fg-muted);
+        flex-shrink: 0;
+      }
+      .contact-list a {
+        color: var(--fg);
+        border-bottom: none;
+      }
+      .contact-list a:hover {
+        color: var(--accent);
+      }
+
+      /* ============================================================
+         메인 콘텐츠
+         ============================================================ */
+      .content > section {
+        margin-bottom: 56px;
+      }
+
+      /* 가장 위에 있는 이름 타이틀 (대형) */
+      .content-header {
+        margin-bottom: 40px;
+      }
+      .content-header h1 {
+        font-family: var(--font-serif);
+        font-size: 44px;
+        font-weight: 500;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        margin: 0 0 12px 0;
+      }
+      .content-header .tagline {
+        font-family: var(--font-sans);
+        font-size: 15px;
+        color: var(--fg-muted);
+        margin: 0;
+      }
+
+      /* CV 다운로드 버튼 줄 */
+      .cv-download {
+        margin-top: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-sans);
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        color: var(--fg);
+        background: var(--bg);
+        transition: border-color 0.15s ease, background 0.15s ease;
+      }
+      .cv-download:hover {
+        border-color: var(--fg);
+        background: var(--surface);
+        color: var(--fg);
+      }
+      .cv-download .icon {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* 섹션 헤딩 */
+      .content h2 {
+        font-family: var(--font-sans);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--fg-muted);
+        margin: 0 0 16px 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .content p {
+        margin: 0 0 14px 0;
+      }
+
+      /* ============================================================
+         Education / Research Interests — 컴팩트 리스트
+         ============================================================ */
+      .edu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .edu-list li {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .edu-list li:last-child {
+        border-bottom: none;
+      }
+      .edu-list .edu-main {
+        flex: 1;
+      }
+      .edu-list .edu-degree {
+        font-weight: 500;
+      }
+      .edu-list .edu-inst {
+        color: var(--fg-muted);
+        font-style: italic;
+      }
+      .edu-list .edu-year {
+        font-family: var(--font-sans);
+        font-size: 14px;
+        color: var(--fg-subtle);
+        white-space: nowrap;
+      }
+
+      .interest-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .interest-list > li {
+        padding: 8px 0;
+      }
+      .interest-list > li > strong {
+        font-weight: 600;
+      }
+      .interest-list ul {
+        margin: 4px 0 0 0;
+        padding-left: 20px;
+        color: var(--fg-muted);
+        font-size: 16px;
+      }
+
+      /* ============================================================
+         Publications / Talks — 논문 스타일 블록
+         ============================================================ */
+      .pub-list,
+      .talk-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .pub-item,
+      .talk-item {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .pub-item:last-child,
+      .talk-item:last-child {
+        border-bottom: none;
+      }
+      .pub-title,
+      .talk-title {
+        font-family: var(--font-serif);
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.35;
+        margin: 0 0 6px 0;
+      }
+      .pub-title a,
+      .talk-title a {
+        color: var(--fg);
+        border-bottom-color: var(--line);
+      }
+      .pub-title a:hover,
+      .talk-title a:hover {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+      }
+      .pub-meta,
+      .talk-meta {
+        font-family: var(--font-sans);
+        font-size: 13.5px;
+        color: var(--fg-muted);
+        line-height: 1.55;
+        margin: 0;
+      }
+      .pub-meta .self {
+        color: var(--fg);
+        font-weight: 600;
+      }
+      .pub-meta em,
+      .talk-meta em {
+        font-style: italic;
+        color: var(--fg);
+      }
+      .tag {
+        display: inline-block;
+        font-family: var(--font-sans);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        padding: 2px 8px;
+        margin-right: 6px;
+        border-radius: 3px;
+        background: var(--surface);
+        color: var(--fg-muted);
+        border: 1px solid var(--line);
+        vertical-align: middle;
+      }
+
+      /* ============================================================
+         Projects — 기관 로고 + 설명 블록
+         - 좌측: 로고 (56x56 고정)
+         - 우측: 프로젝트 이름 / 기관명 / 기간 / 한 줄 요약
+         ============================================================ */
+      .proj-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .proj-item {
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        gap: 20px;
+        align-items: start;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .proj-item:last-child {
+        border-bottom: none;
+      }
+
+      /* 기관 로고 컨테이너
+         - 실제 로고 이미지를 logos/ 폴더에 넣으면 <img>로 대체됨
+         - 로고가 없을 때는 기관명 이니셜을 보여주는 자리표시 */
+      .proj-logo {
+        width: 72px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .proj-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 8px;
+      }
+      .proj-logo .logo-fallback {
+        font-family: var(--font-sans);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: var(--fg-muted);
+        text-align: center;
+        padding: 4px;
+        line-height: 1.2;
+      }
+
+      .proj-body {
+        min-width: 0; /* grid 아이템 텍스트 오버플로우 방지 */
+      }
+      .proj-title {
+        font-family: var(--font-serif);
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.3;
+        margin: 0 0 4px 0;
+      }
+      .proj-org {
+        font-family: var(--font-sans);
+        font-size: 13.5px;
+        color: var(--fg-muted);
+        margin: 0 0 8px 0;
+      }
+      .proj-org .period {
+        color: var(--fg-subtle);
+      }
+      .proj-summary {
+        font-size: 16px;
+        margin: 0;
+        color: var(--fg);
+      }
+
+      /* ============================================================
+         Honors & Awards / Skills — 간결한 리스트
+         ============================================================ */
+      .award-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .award-list li {
+        padding: 8px 0;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        gap: 16px;
+        align-items: baseline;
+      }
+      .award-list li:last-child {
+        border-bottom: none;
+      }
+      .award-date {
+        font-family: var(--font-sans);
+        font-size: 13px;
+        color: var(--fg-subtle);
+        min-width: 90px;
+        flex-shrink: 0;
+      }
+      .award-desc {
+        flex: 1;
+      }
+      .award-desc strong {
+        font-weight: 600;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 14px 24px;
+        align-items: baseline;
+      }
+      @media (max-width: 600px) {
+        .skills-grid {
+          grid-template-columns: 1fr;
+          gap: 2px 0;
+        }
+        .skills-grid > dt {
+          padding-top: 8px;
+        }
+      }
+      .skills-grid dt {
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--fg-muted);
+      }
+      .skills-grid dd {
+        margin: 0;
+      }
+
+      /* ============================================================
+         Footer
+         ============================================================ */
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 24px 0 48px 0;
+        font-family: var(--font-sans);
+        font-size: 12.5px;
+        color: var(--fg-subtle);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      /* 인쇄 시 사이드바 간소화 (선택적 개선) */
+      @media print {
+        .sidebar {
+          position: static;
+        }
+        a {
+          color: var(--fg);
+          border-bottom: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="layout">
+        <!-- ====================================================
+             SIDEBAR — 프로필 사진 + 이름 + 소속 + 연락처
+             ==================================================== -->
+        <aside class="sidebar">
+          <!-- 프로필 사진: images/profile.jpg 파일을 넣으면 표시됩니다.
+               이미지가 없으면 아래 'HK' 이니셜이 보입니다. -->
+          <div class="profile-photo" role="img" aria-label="Hoyoung Kim profile photo">
+            
+          </div>
+
+          <h2 class="profile-name" style="
+            font-family: var(--font-serif);
+            font-size: 22px;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: -0.01em;
+            color: var(--fg);
+            border: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+          ">
+            Hoyoung Kim
+          </h2>
+          <p class="profile-affiliation">
+            M.S. Researcher,<br />
+            Industrial Engineering<br />
+            Dankook University
+          </p>
+
+          <!-- 연락처 / 소셜 링크 -->
+          <ul class="contact-list">
+            <li>
+              <!-- Email icon (lucide) -->
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              <a href="mailto:khy@dankook.ac.kr">khy@dankook.ac.kr</a>
+            </li>
+            <li>
+              <!-- GitHub icon -->
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                <path d="M9 18c-4.51 2-5-2-7-2"/>
+              </svg>
+              <a href="https://github.com/khycom" target="_blank" rel="noopener">GitHub</a>
+            </li>
+            <li>
+              <!-- LinkedIn icon -->
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+              <a href="https://www.linkedin.com/in/hoyoung-kim-9925a537b/" target="_blank" rel="noopener">LinkedIn</a>
+            </li>
+            <li>
+              <!-- Google Scholar icon (graduation cap) -->
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+                <path d="M22 10v6"/>
+                <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+              </svg>
+              <a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a>
+            </li>
+            <li>
+              <!-- Location icon -->
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span style="color: var(--fg);">Cheonan, South Korea</span>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- ====================================================
+             MAIN CONTENT
+             ==================================================== -->
+        <main class="content">
+          <!-- Header: 이름 타이틀 + 한 줄 포지셔닝 + CV 다운로드 -->
+          <header class="content-header">
+            <h1>Hoyoung Kim</h1>
+            <p class="tagline">
+              Industrial engineer working at the intersection of machine learning and
+              mathematical programming — with applications in industrial systems,
+              credit assessment, and technology opportunity analysis.
+            </p>
+            <!-- 실제 CV PDF 를 files/cv-hoyoungkim.pdf 로 넣어주세요 -->
+            <a class="cv-download" href="files/CV_Hoyoung_Kim.pdf" download>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download CV (PDF)
+            </a>
+          </header>
+
+          <!-- About -->
+          <section id="about">
+            <h2>About</h2>
+            <p>
+              I am an M.S. researcher at the
+              <em>Computational Optimization for Intelligent Systems Lab</em>
+              in the Department of Industrial Engineering at Dankook University.
+              My research focuses on decision-making problems in industrial systems 
+              using data-driven prediction and mathematical optimization.
+            </p>
+          </section>
+
+          <!-- Education -->
+          <section id="education">
+            <h2>Education</h2>
+            <ul class="edu-list">
+              <li>
+                <div class="edu-main">
+                  <div class="edu-degree">M.S. in Industrial Engineering</div>
+                  <div class="edu-inst">Dankook University</div>
+                </div>
+                <div class="edu-year">Mar 2026 — Present</div>
+              </li>
+              <li>
+                <div class="edu-main">
+                  <div class="edu-degree">B.S. in Management Engineering</div>
+                  <div class="edu-inst">Dankook University</div>
+                </div>
+                <div class="edu-year">Graduated Feb 2026</div>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Research Interests -->
+          <section id="interests">
+            <h2>Research Interests</h2>
+            <ul class="interest-list">
+              <li>
+                <strong>Machine Learning &amp; Deep Learning</strong>
+                <ul>
+                  <li>Predictive modeling for industrial systems</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Mathematical Programming &amp; Optimization</strong>
+                <ul>
+                  <li>Mixed-integer programming for resource allocation and scheduling</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Technology Opportunity Analysis &amp; Forecasting</strong>
+                <ul>
+                  <li>Patent-driven technology intelligence and vacancy detection</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Publications (Domestic) -->
+          <section id="publications (Domestic)">
+            <h2>Publications (Domestic)</h2>
+            <ul class="pub-list">
+              <li class="pub-item">
+                <h3 class="pub-title">
+                  <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003355366" target="_blank" rel="noopener">
+                    Social Network Analysis of Regional Health Recognition Inequality Factors: A Focus on Secondhand Smoke
+                  </a>
+                </h3>
+                <p class="pub-meta">
+                  G. Han, Y. Noh, M. Woo, J. Hong, <span class="self">Hoyoung Kim</span>, H. Kim, S. W. Cho<sup>&dagger;</sup> (2026).
+                  <em>Health and Social Welfare Review</em>.
+                </p>
+              </li>
+              <li class="pub-item">
+                <h3 class="pub-title">
+                  <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003294484" target="_blank" rel="noopener">
+                    Patent-Driven Topic Modeling and Opportunity Analysis for Smart Logistics Technology
+                  </a>
+                </h3>
+                <p class="pub-meta">
+                  <span class="self">Hoyoung Kim</span>, S. Kang, H. Seol, C. Yoo, B. Hong, S. W. Cho<sup>&dagger;</sup> (2025).
+                  <em>Journal of Logistics Science &amp; Technology</em>.
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Talks -->
+          <section id="talks">
+            <h2>Conference Talks</h2>
+            <ul class="talk-list">
+              <li class="talk-item">
+                <h3 class="talk-title">
+                  머신러닝 기반의 연료 소모량 예측을 활용한 선박 속도 최적화
+                </h3>
+                <p class="talk-meta">
+                  <span class="self" style="color: var(--fg); font-weight: 600;">Hoyoung Kim</span>,
+                  G. Han, J. Kim, M. Woo, H. Kim, W. Lee, S. W. Cho<sup>&dagger;</sup>.
+                  <em>KASOTS 2026</em>, Jeju, South Korea. May 2026.
+                </p>
+              </li>
+              <li class="talk-item">
+                <h3 class="talk-title">
+                  스마트 물류 기술 동향 분석을 위한 특허 데이터 기반 토픽모델링 및 기술 기회 분석
+                </h3>
+                <p class="talk-meta">
+                  <span class="self" style="color: var(--fg); font-weight: 600;">Hoyoung Kim</span>,
+                  S. Kang, H. Seol, C. Yoo, B. Hong, S. W. Cho<sup>&dagger;</sup>.
+                  <em>LOGIST 2025</em>, Daegu, South Korea. Nov 2025.
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Selected Projects -->
+          <section id="projects">
+            <h2>Selected Projects</h2>
+            <ul class="proj-list">
+              <!-- Project 1: KRISO -->
+              <li class="proj-item">
+                <div class="proj-logo">
+                  <!-- logos/kriso.png 파일을 넣어주세요. 없으면 자리표시자 텍스트가 보입니다. -->
+                  <img
+                    src="logos/kriso.png"
+                    alt="KRISO logo"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <div class="logo-fallback" style="display:none;">KRISO</div>
+                </div>
+                <div class="proj-body">
+                  <h3 class="proj-title">Data-Driven FOC Prediction &amp; Speed Optimization</h3>
+                  <p class="proj-org">
+                    Korea Research Institute of Ships &amp; Ocean Engineering (KRISO)
+                    <span class="period">· May 2026 — Nov 2026</span>
+                  </p>
+                  <p class="proj-summary">
+                    Developed an ML-based fuel-oil consumption (FOC) prediction module accounting
+                    for real-world maritime environments, and formulated a MILP speed optimization
+                    algorithm to minimize total fuel usage across the entire voyage.
+                  </p>
+                </div>
+              </li>
+
+              <!-- Project 2: NICE Information Service -->
+              <li class="proj-item">
+                <div class="proj-logo">
+                  <img
+                    src="logos/nice.png"
+                    alt="NICE Information Service logo"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <div class="logo-fallback" style="display:none;">NICE</div>
+                </div>
+                <div class="proj-body">
+                  <h3 class="proj-title">Credit Rating Model Development and Process Improvement</h3>
+                  <p class="proj-org">
+                    NICE Information Service
+                    <span class="period">· Sep 2025 — Dec 2025</span>
+                  </p>
+                  <p class="proj-summary">
+                    Automated corporate credit rating models based on financial and non-financial data
+                    using multivariate statistical analysis, and developed a specialized evaluation
+                    framework for the shipping industry.
+                  </p>
+                </div>
+              </li>
+
+              <!-- Project 3: KIBO -->
+              <li class="proj-item">
+                <div class="proj-logo">
+                  <img
+                    src="logos/kibo.png"
+                    alt="KIBO logo"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <div class="logo-fallback" style="display:none;">KIBO</div>
+                </div>
+                <div class="proj-body">
+                  <h3 class="proj-title">Development of an AI-Based Investment Model &amp; Advancement of the Innovation Growth Capability Model</h3>
+                  <p class="proj-org">
+                    Korea Technology Finance Corporation (KOTEC)
+                    <span class="period">· Jul 2025 — Dec 2025</span>
+                  </p>
+                  <p class="proj-summary">
+                    Analyzed relationships among corporate innovation capabilities from both linear
+                    and nonlinear perspectives using machine learning, and developed leading indicators
+                    of future innovation and growth potential applicable to early-stage startups.
+                  </p>
+                </div>
+              </li>
+
+              <!-- Project 4: Ministry of Oceans and Fisheries -->
+              <li class="proj-item">
+                <div class="proj-logo">
+                  <img
+                    src="logos/mof.png"
+                    alt="Ministry of Oceans and Fisheries logo"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <div class="logo-fallback" style="display:none;">MOF</div>
+                </div>
+                <div class="proj-body">
+                  <h3 class="proj-title">VDES Network Resource Allocation Optimization</h3>
+                  <p class="proj-org">
+                    Ministry of Oceans and Fisheries
+                    <span class="period">· Feb 2025 — Dec 2027</span>
+                  </p>
+                  <p class="proj-summary">
+                    Developed a hierarchical MIP model to optimize base station resources
+                    (frequency, TDMA, time slot selection) for VHF Data Exchange Systems.
+                  </p>
+                </div>
+              </li>
+
+              <!-- Project 5: AIVeNautics -->
+              <li class="proj-item">
+                <div class="proj-logo">
+                  <img
+                    src="logos/AIVeNautics.png"
+                    alt="AIVeNautics logo"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <div class="logo-fallback" style="display:none;">AIVeNautics</div>
+                </div>
+                <div class="proj-body">
+                  <h3 class="proj-title">Dynamic Cell Planning (DCP) Algorithm Development</h3>
+                  <p class="proj-org">
+                    AIVeNautics
+                    <span class="period">· Sep 2025 — Nov 2025</span>
+                  </p>
+                  <p class="proj-summary">
+                    Developed a DCP algorithm considering the adoption of satellite-based
+                    internet services such as Starlink, incorporating ship-specific broadcasting ranges,
+                    traffic characteristics, and channel usage patterns to maximize AIS network coverage
+                    through mathematical optimization.
+                  </p>
+                </div>
+              </li>
+
+              <!-- Project 6: Dankook University / COIS Lab -->
+              <li class="proj-item">
+                <div class="proj-logo">
+                  <img
+                    src="logos/cois-lab.png"
+                    alt="COIS Lab / Dankook University logo"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <div class="logo-fallback" style="display:none;">COIS&nbsp;LAB</div>
+                </div>
+                <div class="proj-body">
+                  <h3 class="proj-title">Timetable Optimization Service (TOS) Algorithm</h3>
+                  <p class="proj-org">
+                    Dankook University
+                    <span class="period">· Jul 2025</span>
+                  </p>
+                  <p class="proj-summary">
+                    Developed a Gurobi-based scheduling optimization algorithm that
+                    reflects user preferences for undergraduate course planning.
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Honors & Awards -->
+          <section id="awards">
+            <h2>Awards &amp; Honors</h2>
+            <ul class="award-list">
+              <li>
+                <div class="award-date">Nov 2025</div>
+                <div class="award-desc">
+                  <strong>Top Excellence Award</strong> — LOGIST 2025 Logistics Paper Competition
+                </div>
+              </li>
+              <li>
+                <div class="award-date">Nov 2025</div>
+                <div class="award-desc">
+                  <strong>Encouragement Award</strong> — 21st KMAC Management Innovation Competition
+                </div>
+              </li>
+              <li>
+                <div class="award-date">Nov 2025</div>
+                <div class="award-desc">
+                  <strong>Beomeun Scholarship Foundation</strong> — Scholarship Student
+                </div>
+              </li>
+              <li>
+                <div class="award-date">Jul 2025</div>
+                <div class="award-desc">
+                  <strong>Excellence Award</strong> — DKU CTL Best Practice Competition
+                </div>
+              </li>
+              <li>
+                <div class="award-date">2022 — 2026</div>
+                <div class="award-desc">
+                  <strong>Academic Excellence Awards</strong> — Dankook University (성적우수상, 우등상)
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Skills -->
+          <section id="skills">
+            <h2>Skills</h2>
+            <dl class="skills-grid">
+              <dt>Programming</dt>
+              <dd>Python, SQL</dd>
+
+              <dt>Optimization</dt>
+              <dd>Gurobi</dd>
+
+              <dt>Modeling Tools</dt>
+              <dd>AutoMod, AutoCAD</dd>
+
+              <dt>Certifications</dt>
+              <dd>SQL Developer (SQLD)</dd>
+            </dl>
+          </section>
+
+          <footer>
+            <span>© 2026 Hoyoung Kim</span>
+            <span>Last updated: July 2026</span>
+          </footer>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
