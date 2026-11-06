@@ -37,11 +37,12 @@ a {
 
 /* ============================================================
    사이드바 → 상단 헤더
+   좌: 사진 + 이름 + 소속  /  우: 연락처 세로 배치
    ============================================================ */
 .sidebar {
   position: static;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr 200px;
   grid-template-rows: auto auto auto;
   gap: 2px 16px;
   padding-bottom: 14px;
@@ -51,6 +52,7 @@ a {
 
 .profile-photo {
   grid-row: 1 / 4;
+  grid-column: 1;
   width: 80px;
   height: 80px;
   margin-bottom: 0;
@@ -58,17 +60,20 @@ a {
 }
 
 .profile-name {
+  grid-column: 2;
   font-size: 20px !important;
   margin: 0 !important;
   align-self: end;
 }
 
 .profile-name-en {
+  grid-column: 2;
   font-size: 12px;
   margin: 0;
 }
 
 .profile-affiliation {
+  grid-column: 2;
   font-size: 12px;
   margin: 0;
   color: #333;
@@ -79,13 +84,15 @@ a {
   display: flex !important;
 }
 
-/* 연락처 가로 배치 */
+/* 연락처: 오른쪽 칼럼에 세로 배치, 칼럼 안에서 왼쪽 정렬 */
 .contact-list {
-  grid-column: 1 / -1;
+  grid-column: 3;
+  grid-row: 1 / 4;
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px 14px;
-  margin-top: 8px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 0;
   font-size: 11px;
 }
 

@@ -533,8 +533,8 @@ footer {
    - 국문 이름 아래 영문 병기 요소
    ============================================================ */
 html[lang='ko'] {
-  --font-serif: 'Noto Serif KR', Georgia, serif;
-  --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Newsreader', 'Noto Serif KR', Georgia, serif;
+  --font-sans: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
   --max-content: 1120px;
 }
 
