@@ -15,6 +15,7 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&amp;family=Noto+Serif+KR:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="style-print.css" media="print"/>
 <link rel="alternate" hreflang="ko" href="index_kr.html" />
 <link rel="alternate" hreflang="en" href="index.html" />
 </head>
@@ -45,14 +46,21 @@
 <ul class="contact-list">
 <li>
 <!-- Email icon (lucide) -->
-<svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
 <rect height="16" rx="2" width="20" x="2" y="4"></rect>
 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
 </svg>
 <a href="mailto:khy@dankook.ac.kr">khy@dankook.ac.kr</a>
+</li>
+<li class="phone-only">
+<!-- Phone icon (lucide) -->
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+</svg>
+<span style="color: var(--fg);">010-xxxx-xxxx</span>
 </li><li>
 <!-- GitHub icon -->
-<svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
 <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
 <path d="M9 18c-4.51 2-5-2-7-2"></path>
 </svg>
@@ -60,7 +68,7 @@
 </li>
 <li>
 <!-- LinkedIn icon -->
-<svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
 <rect height="12" width="4" x="2" y="9"></rect>
 <circle cx="4" cy="4" r="2"></circle>
@@ -69,7 +77,7 @@
 </li>
 <li>
 <!-- Google Scholar icon (graduation cap) -->
-<svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
 <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
 <path d="M22 10v6"></path>
 <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
@@ -78,7 +86,7 @@
 </li>
 <li>
 <!-- Location icon -->
-<svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
 <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
 <circle cx="12" cy="10" r="3"></circle>
 </svg>
@@ -99,9 +107,9 @@
 <!-- Header: 이름 타이틀 + 한 줄 포지셔닝 + CV 다운로드 -->
 <header class="content-header">
 <h1>김호영<span class="name-en">Hoyoung Kim</span></h1>
-<p class="tagline">머신러닝과 수리최적화를 기반으로 산업 시스템, 기업 신용평가, 기술기회분석 분야의 문제를 연구합니다.</p>
+<p class="tagline">산업 시스템 문제를 다루는 적응형 연구자</p>
 <!-- 실제 CV PDF 를 files/CV_Hoyoung_Kim.pdf 로 넣어주세요 -->
-<a class="cv-download" download="" href="files/CV_Hoyoung_Kim.pdf"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<a class="cv-download" download="" href="files/CV_Hoyoung_Kim.pdf"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
 <polyline points="7 10 12 15 17 10"></polyline>
 <line x1="12" x2="12" y1="15" y2="3"></line>
@@ -110,7 +118,7 @@
 <!-- About -->
 <section id="about"><h2>소개</h2>
 <p>
-  단국대학교 산업공학과 <em>Computational Optimization for Intelligent Systems Lab</em> 에서 석사과정 연구원으로 연구하고 있습니다.
+  단국대학교 산업공학과 <em>Computational Optimization for Intelligent Systems Lab</em> 석사과정 연구원입니다.
   데이터 기반 예측과 수리최적화를 활용하여 산업 시스템의 의사결정 문제를 연구합니다.
 </p>
 </section>
@@ -124,9 +132,9 @@
 <!-- Research Interests -->
 <section id="interests"><h2>연구 관심 분야</h2>
 <ul class="interest-list">
-<li><strong>머신러닝 및 딥러닝</strong><ul><li>산업 시스템을 위한 예측모델링</li></ul></li>
-<li><strong>수리계획 및 최적화</strong><ul><li>혼합정수계획 기반 자원배분 및 스케줄링 최적화</li></ul></li>
-<li><strong>기술기회분석 및 기술예측</strong><ul><li>특허 기반 기술 인텔리전스 및 기술 공백 탐지</li></ul></li>
+<li><strong>Optimization &amp; Operations Research</strong><ul><li>수리계획법 및 메타휴리스틱 기반 스케줄링·자원배분 최적화</li></ul></li>
+<li><strong>Machine Intelligence</strong><ul><li>산업 시스템을 위한 예측 모델링</li></ul></li>
+<li><strong>Data Mining &amp; Modeling</strong><ul><li>데이터 기반 의사결정을 위한 지식 도출</li></ul></li>
 </ul>
 </section>
 <!-- Publications (Domestic) -->
@@ -153,9 +161,34 @@
 </li>
 </ul>
 </section>
-<!-- Talks -->
-<section id="talks">
-<h2>학술대회 발표</h2>
+<!-- Conference (International) -->
+<section id="conf-intl">
+<h2>국제 학술대회</h2>
+<ul class="talk-list">
+<li class="talk-item">
+<h3 class="talk-title">
+                  Time-Dependent Ship Speed Optimization with Physics-Informed Fuel Oil Consumption Prediction
+                </h3>
+<p class="talk-meta"><span class="self" style="color: var(--fg); font-weight: 600;">Hoyoung Kim</span>, J. Kim, M. Woo, Y. Cha, Y. Zhou, W. Lee<sup>†</sup>, S. W. Cho<sup>†</sup>. <em>GRN-BRI 2026</em>, Jeonju, South Korea. 2026.11.</p>
+</li>
+<li class="talk-item">
+<h3 class="talk-title">
+                  TDMA Slot Assignment for Efficient VHF Data Exchange in Maritime Wireless Networks
+                </h3>
+<p class="talk-meta">M. Woo, H. Kim, <span class="self" style="color: var(--fg); font-weight: 600;">Hoyoung Kim</span>, T. Yoo, S. W. Cho<sup>†</sup>. <em>INFORMS TNA 2026</em>, Online. 2026.10. <strong>[Best Student Paper Award]</strong></p>
+</li>
+<li class="talk-item">
+<h3 class="talk-title">
+                  <a href="https://link.springer.com/chapter/10.1007/978-3-032-30795-8_3" target="_blank" rel="noopener">Neural Column Generation for Quay Crane Scheduling</a>
+                </h3>
+<p class="talk-meta">M. Woo, H. Kim, <span class="self" style="color: var(--fg); font-weight: 600;">Hoyoung Kim</span>, Y. Zhou, S. W. Cho<sup>†</sup>. <em>LOGMS 2026</em>, Barcelona, Spain. 2026.07. <strong>[Best Paper Award]</strong></p>
+</li>
+</ul>
+</section>
+
+<!-- Conference (Domestic) -->
+<section id="conf-domestic">
+<h2>국내 학술대회</h2>
 <ul class="talk-list">
 <li class="talk-item">
 <h3 class="talk-title">
@@ -173,7 +206,7 @@
 </section>
 <!-- Selected Projects -->
 <section id="projects">
-<h2>주요 프로젝트</h2>
+<h2>프로젝트</h2>
 <ul class="proj-list">
 <!-- Project 1: 새마을금고중앙회 -->
 <li class="proj-item">
@@ -185,9 +218,9 @@
 <h3 class="proj-title">AI시대 인력 운영 체계 전환을 위한 직무분석 컨설팅</h3>
 <p class="proj-org">새마을금고중앙회 <span class="period">· 2026.08 — 2026.10</span></p>
 <p class="proj-summary">
-                    직무분석 결과의 세부업무 기술문을 자연어처리를 통해 행위어와 대상어 단위로 추출하고,
+                    세부업무 기술문을 자연어처리를 통해 행위어와 대상어 단위로 추출하고,
                     이를 O*NET Task 데이터와 매칭하여 업무 단위의 AI Exposure를 정량화했습니다.
-                    이를 통해 업무별 AI 적용 가능성을 자동화·증강·영향미미 유형으로 구분하는 기준을 수립했습니다.
+                    이를 통해 직무별 AI 영향 유형을 자동화·증강·영향미미로 구분하는 기준을 수립했습니다.
                   </p>
 </div>
 </li>
@@ -201,7 +234,7 @@
 <div class="proj-body">
 <h3 class="proj-title">데이터 기반 연료 소모량 예측 모듈 개발 및 테스트</h3>
 <p class="proj-org">선박해양플랜트연구소 (KRISO) <span class="period">· 2026.05 — 2026.11</span></p>
-<p class="proj-summary">실제 해양환경을 반영한 머신러닝 기반 연료소모량 예측 모듈을 개발하고, 전체 항해의 연료소모량을 최소화하기 위한 MILP 기반 선속 최적화 알고리즘을 개발했습니다.</p>
+<p class="proj-summary">실제 해양환경을 반영한 머신러닝 기반 연료소모량 예측 모듈을 개발하고, 전체 항해의 연료소모량을 최소화하기 위한 선속 최적화 모형을 수립했습니다.</p>
 </div>
 </li>
 <!-- Project 3: NICE Information Service -->
@@ -225,7 +258,7 @@
 <div class="proj-body">
 <h3 class="proj-title">개방형의 AI 투자모형 개발 및 혁신성장역량 모형 고도화 연구</h3>
 <p class="proj-org">기술보증기금 <span class="period">· 2025.07 — 2025.12</span></p>
-<p class="proj-summary">기업의 다양한 혁신역량 간 관계를 선형 및 비선형 관점에서 머신러닝으로 분석하여, 초기 창업기업까지 적용할 수 있는 미래 혁신성과 성장 가능성의 선행지표를 개발했습니다.</p>
+<p class="proj-summary">기업의 다양한 혁신역량 간 관계를 선형 및 비선형 관점에서 분석하여, 초기 창업기업까지 적용할 수 있는 미래 혁신성과 성장 가능성의 선행지표를 개발했습니다.</p>
 </div>
 </li>
 <!-- Project 5: Ministry of Oceans and Fisheries -->
@@ -237,7 +270,7 @@
 <div class="proj-body">
 <h3 class="proj-title">VDES 국제공동개발 및 협력 실증</h3>
 <p class="proj-org">해양수산부 <span class="period">· 2025.02 — 2027.12</span></p>
-<p class="proj-summary">해안 기지국, 선박, 위성 간 데이터 교환을 지원하는 VDES(VHF Data Exchange System)의 도입을 고려하여, 기지국의 통신 자원을 효율적으로 배분하기 위한 수학적 최적화 모델을 개발했습니다.</p>
+<p class="proj-summary">해안 기지국, 선박, 위성 간 데이터 교환을 지원하는 VDES(VHF Data Exchange System)의 도입을 고려하여, 기지국의 통신 자원을 효율적으로 배분하기 위한 최적화 모형을 수립했습니다.</p>
 </div>
 </li>
 <!-- Project 6: AIVeNautics -->
@@ -249,7 +282,7 @@
 <div class="proj-body">
 <h3 class="proj-title">최적 Dynamic Cell Planning(DCP) 알고리즘 개발</h3>
 <p class="proj-org">에이브노틱스 <span class="period">· 2025.09 — 2025.11</span></p>
-<p class="proj-summary">Starlink 등 위성 기반 인터넷 서비스의 도입을 고려하여, 선박별 브로드캐스팅 범위와 트래픽 특성, 통신 채널 사용 패턴을 반영한 DCP 알고리즘을 개발했습니다. 이를 위해 AIS 네트워크의 커버리지를 극대화하는 수학적 최적화 모델을 설계했습니다.</p>
+<p class="proj-summary">Starlink 등 위성 기반 인터넷 서비스의 도입을 고려하여, 선박별 브로드캐스팅 범위와 트래픽 특성, 통신 채널 사용 패턴을 반영한 최적화 모형을 수립했습니다.</p>
 </div>
 </li>
 <!-- Project 7: Dankook University / COIS Lab -->
@@ -261,7 +294,7 @@
 <div class="proj-body">
 <h3 class="proj-title">시간표 최적화 서비스 (TOS) 알고리즘 개발</h3>
 <p class="proj-org">단국대학교 <span class="period">· 2025.07</span></p>
-<p class="proj-summary">학부 수강계획에서 사용자의 선호를 반영하는 Gurobi 기반 시간표 스케줄링 최적화 알고리즘을 개발했습니다.</p>
+<p class="proj-summary">학부생들의 수강 계획을 위한 사용자 선호 기반 시간표 최적화 서비스를 개발했습니다.</p>
 </div>
 </li>
 </ul>
@@ -270,6 +303,18 @@
 <section id="awards">
 <h2>수상 및 장학</h2>
 <ul class="award-list">
+<li>
+<div class="award-date">2026.11</div>
+<div class="award-desc"><strong>우수상</strong> — 한국물류과학기술학회 2026 물류분야 논문경진대회</div>
+</li>
+<li>
+<div class="award-date">2026.10</div>
+<div class="award-desc"><strong>Best Student Paper Award</strong> — 17th INFORMS Telecommunications and Network Analytics Conference (TNA 2026)</div>
+</li>
+<li>
+<div class="award-date">2026.07</div>
+<div class="award-desc"><strong>Best Paper Award</strong> — 14th International Conference on Logistics and Maritime Systems (LOGMS 2026)</div>
+</li>
 <li>
 <div class="award-date">2025.11</div>
 <div class="award-desc"><strong>최우수상</strong> — 한국물류과학기술학회 2025 물류분야 논문경진대회</div>
@@ -308,7 +353,7 @@
 </section>
 <footer>
 <span>© 2026 김호영 (Hoyoung Kim)</span>
-<span>최종 수정: 2026년 9월</span>
+<span>Last Updated: 2026년 11월</span>
 </footer>
 </main>
 </div>

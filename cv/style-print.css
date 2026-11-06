@@ -1,0 +1,277 @@
+/* ============================================================
+   style-print.css
+   브라우저 인쇄(Ctrl+P → PDF 저장) 시에만 적용되는 스타일
+   <link rel="stylesheet" href="style-print.css" media="print" />
+   ============================================================ */
+
+@page {
+  size: A4;
+  margin: 14mm 16mm;
+}
+
+body {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #000;
+  background: #fff;
+}
+
+a {
+  color: #000;
+  border-bottom: none;
+  text-decoration: none;
+}
+
+/* ============================================================
+   레이아웃: 2컬럼 → 1컬럼
+   ============================================================ */
+.page {
+  max-width: 100%;
+  padding: 0;
+}
+
+.layout {
+  display: block;
+  padding: 0;
+}
+
+/* ============================================================
+   사이드바 → 상단 헤더
+   ============================================================ */
+.sidebar {
+  position: static;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 2px 16px;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #000;
+}
+
+.profile-photo {
+  grid-row: 1 / 4;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0;
+  border: 1px solid #ccc;
+}
+
+.profile-name {
+  font-size: 20px !important;
+  margin: 0 !important;
+  align-self: end;
+}
+
+.profile-name-en {
+  font-size: 12px;
+  margin: 0;
+}
+
+.profile-affiliation {
+  font-size: 12px;
+  margin: 0;
+  color: #333;
+}
+
+/* 전화번호 인쇄 시 표시 */
+.contact-list .phone-only {
+  display: flex !important;
+}
+
+/* 연락처 가로 배치 */
+.contact-list {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+.contact-list li {
+  margin: 0;
+  gap: 5px;
+}
+
+.contact-list .icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* GitHub(3), LinkedIn(4), Google Scholar(5) 숨김 */
+.contact-list li:nth-child(3),
+.contact-list li:nth-child(4),
+.contact-list li:nth-child(5) {
+  display: none;
+}
+
+/* 인쇄 시 숨길 요소 */
+.lang-switch,
+.cv-download {
+  display: none !important;
+}
+
+/* ============================================================
+   메인 콘텐츠 헤더 숨김 (사이드바 헤더와 중복)
+   ============================================================ */
+.content-header {
+  display: none !important;
+}
+
+/* ============================================================
+   메인 콘텐츠
+   ============================================================ */
+.content > section {
+  margin-bottom: 18px;
+}
+
+.content h2 {
+  font-size: 11px;
+  margin-bottom: 8px;
+  padding-bottom: 5px;
+  color: #000;
+}
+
+.content p {
+  margin-bottom: 8px;
+}
+
+/* ============================================================
+   Education
+   ============================================================ */
+.edu-list li {
+  padding: 5px 0;
+}
+
+.edu-list .edu-degree {
+  font-size: 13px;
+}
+
+.edu-list .edu-inst {
+  font-size: 12px;
+}
+
+.edu-list .edu-year {
+  font-size: 12px;
+}
+
+/* ============================================================
+   Research Interests
+   ============================================================ */
+.interest-list > li {
+  padding: 4px 0;
+  font-size: 13px;
+}
+
+.interest-list ul {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   Publications / Conference
+   ============================================================ */
+.pub-item,
+.talk-item {
+  padding: 8px 0;
+}
+
+.pub-title,
+.talk-title {
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.pub-meta,
+.talk-meta {
+  font-size: 11px;
+}
+
+/* ============================================================
+   Projects
+   ============================================================ */
+.proj-item {
+  grid-template-columns: 72px 1fr;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.proj-logo {
+  width: 72px;
+  height: 54px;
+}
+
+.proj-logo img {
+  padding: 5px;
+}
+
+.proj-title {
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.proj-org {
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+
+.proj-summary {
+  font-size: 12px;
+}
+
+/* ============================================================
+   Awards
+   ============================================================ */
+.award-list li {
+  padding: 5px 0;
+}
+
+.award-date {
+  font-size: 11px;
+  min-width: 70px;
+}
+
+.award-desc {
+  font-size: 13px;
+}
+
+/* ============================================================
+   Skills
+   ============================================================ */
+.skills-grid {
+  grid-template-columns: 110px 1fr;
+  gap: 6px 20px;
+}
+
+.skills-grid dt {
+  font-size: 11px;
+}
+
+.skills-grid dd {
+  font-size: 13px;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+footer {
+  display: none !important;
+}
+
+/* ============================================================
+   페이지 잘림 방지
+   ============================================================ */
+section {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.proj-item,
+.pub-item,
+.talk-item,
+.award-list li,
+.edu-list li {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
